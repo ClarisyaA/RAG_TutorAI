@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutor 3D - Robot Lucu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            overflow: hidden;
+        }
+        
+        #container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #canvas-container {
+            flex: 1;
+            position: relative;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            min-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        #textInput {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            margin-bottom: 15px;
+            outline: none;
+            backdrop-filter: blur(10px);
+        }
+        
+        #textInput::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #f44336, #d32f2f);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        #status {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        #character-info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .speaking {
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="canvas-container"></div>
+        
+        <div id="character-info">
+            <h3>🤖 Robot AI Lucu</h3>
+            <p>Status: <span id="character-status">Siap membantu</span></p>
+            <p>Mode: <span id="expression-mode">Normal</span></p>
+        </div>
+        
+        <div id="controls">
+            <textarea id="textInput" placeholder="Ketik sesuatu untuk dibacakan oleh Robot AI..." rows="3"></textarea>
+            <div class="button-group">
+                <button class="btn btn-primary" id="speakBtn">🗣️ Bicara</button>
+                <button class="btn btn-secondary" id="stopBtn" disabled>🛑 Stop</button>
+            </div>
+            <div id="status">Masukkan teks dan tekan tombol bicara</div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let scene, camera, renderer, robot, mixer, clock;
+        let isSpeaking = false;
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        let currentExpression = 'normal';
+        
+        // Initialize Three.js
+        function initThree() {
+            const container = document.getElementById('canvas-container');
+            
+            // Scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a1a2e);
+            
+            // Camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 1, 4);
+            
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            container.appendChild(renderer.domElement);
+            
+            // Clock for animations
+            clock = new THREE.Clock();
+            
+            // Lights
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(5, 10, 5);
+            directionalLight.castShadow = true;
+            scene.add(directionalLight);
+            
+            // Neon lighting for futuristic feel
+            const neonLight1 = new THREE.PointLight(0x00ffff, 0.6, 50);
+            neonLight1.position.set(-3, 3, 3);
+            scene.add(neonLight1);
+            
+            const neonLight2 = new THREE.PointLight(0xff00ff, 0.6, 50);
+            neonLight2.position.set(3, 3, 3);
+            scene.add(neonLight2);
+            
+            // Create robot
+            createRobot();
+            
+            // Start render loop
+            animate();
+        }
+        
+        // Create cute robot character
+        function createRobot() {
+            const group = new THREE.Group();
+
+            // Body
+            const bodyGeometry = new THREE.BoxGeometry(1, 1.2, 0.8);
+            const bodyMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0x6c5ce7, // Soft purple
+                shininess: 150 
+            });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            body.position.y = 0.5;
+            body.castShadow = true;
+            group.add(body);
+
+            // LED Screen (face)
+            const screenGeometry = new THREE.BoxGeometry(0.8, 0.6, 0.05);
+            const screenMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0x000000, 
+                emissive: 0x74b9ff,
+                emissiveIntensity: 0.5 
+            });
+            const screen = new THREE.Mesh(screenGeometry, screenMaterial);
+            screen.position.set(0, 0.6, 0.425);
+            group.add(screen);
+
+            // Eyes
+            const eyeGeometry = new THREE.CircleGeometry(0.08, 16);
+            const eyeMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0x00cec9, 
+                emissive: 0x00cec9, 
+                emissiveIntensity: 0.7 
+            });
+
+            const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+            leftEye.position.set(-0.15, 0.65, 0.45);
+            group.add(leftEye);
+
+            const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+            rightEye.position.set(0.15, 0.65, 0.45);
+            group.add(rightEye);
+
+            // Smile mouth
+            const mouthGeometry = new THREE.RingGeometry(0.04, 0.1, 32, 1, Math.PI, Math.PI);
+            const mouthMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0xff7675, 
+                emissive: 0xff7675, 
+                emissiveIntensity: 0.4 
+            });
+            const mouth = new THREE.Mesh(mouthGeometry, mouthMaterial);
+            mouth.rotation.z = Math.PI;
+            mouth.position.set(0, 0.45, 0.45);
+            group.add(mouth);
+
+            // LED heart on chest
+            const heartGeometry = new THREE.CircleGeometry(0.1, 32);
+            const heartMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0xff4757, 
+                emissive: 0xff4757, 
+                emissiveIntensity: 0.6 
+            });
+            const heart = new THREE.Mesh(heartGeometry, heartMaterial);
+            heart.position.set(0, 0.2, 0.41);
+            group.add(heart);
+
+            // Antennae
+            const antennaGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.3, 8);
+            const antennaMaterial = new THREE.MeshPhongMaterial({ color: 0x7f8c8d });
+
+            const leftAntenna = new THREE.Mesh(antennaGeometry, antennaMaterial);
+            leftAntenna.position.set(-0.2, 1.35, 0);
+            group.add(leftAntenna);
+
+            const rightAntenna = new THREE.Mesh(antennaGeometry, antennaMaterial);
+            rightAntenna.position.set(0.2, 1.35, 0);
+            group.add(rightAntenna);
+
+            // Antenna tips
+            const tipGeometry = new THREE.SphereGeometry(0.05, 8, 8);
+            const tipMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0xff0000, 
+                emissive: 0xff0000, 
+                emissiveIntensity: 0.8 
+            });
+
+            const leftTip = new THREE.Mesh(tipGeometry, tipMaterial);
+            leftTip.position.set(-0.2, 1.5, 0);
+            group.add(leftTip);
+
+            const rightTip = new THREE.Mesh(tipGeometry, tipMaterial);
+            rightTip.position.set(0.2, 1.5, 0);
+            group.add(rightTip);
+
+            // Arms
+            const armGeometry = new THREE.BoxGeometry(0.15, 0.6, 0.15);
+            const armMaterial = new THREE.MeshPhongMaterial({ color: 0xa29bfe });
+
+            const leftArm = new THREE.Mesh(armGeometry, armMaterial);
+            leftArm.position.set(-0.65, 0.3, 0);
+            group.add(leftArm);
+
+            const rightArm = new THREE.Mesh(armGeometry, armMaterial);
+            rightArm.position.set(0.65, 0.3, 0);
+            group.add(rightArm);
+
+            // Hands (rounded)
+            const handGeometry = new THREE.SphereGeometry(0.12, 12, 12);
+            const handMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0xfd79a8, 
+                shininess: 120 
+            });
+
+            const leftHand = new THREE.Mesh(handGeometry, handMaterial);
+            leftHand.position.set(-0.65, -0.1, 0);
+            group.add(leftHand);
+
+            const rightHand = new THREE.Mesh(handGeometry, handMaterial);
+            rightHand.position.set(0.65, -0.1, 0);
+            group.add(rightHand);
+
+            // Legs
+            const legGeometry = new THREE.BoxGeometry(0.2, 0.8, 0.2);
+            const legMaterial = new THREE.MeshPhongMaterial({ color: 0xa29bfe });
+
+            const leftLeg = new THREE.Mesh(legGeometry, legMaterial);
+            leftLeg.position.set(-0.25, -0.5, 0);
+            group.add(leftLeg);
+
+            const rightLeg = new THREE.Mesh(legGeometry, legMaterial);
+            rightLeg.position.set(0.25, -0.5, 0);
+            group.add(rightLeg);
+
+            // Feet (rounded shoes)
+            const footGeometry = new THREE.CylinderGeometry(0.15, 0.15, 0.2, 16);
+            footGeometry.rotateX(Math.PI / 2);
+
+            const footMaterial = new THREE.MeshPhongMaterial({ color: 0x6c5ce7 });
+
+            const leftFoot = new THREE.Mesh(footGeometry, footMaterial);
+            leftFoot.position.set(-0.25, -0.95, 0.1);
+            group.add(leftFoot);
+
+            const rightFoot = new THREE.Mesh(footGeometry, footMaterial);
+            rightFoot.position.set(0.25, -0.95, 0.1);
+            group.add(rightFoot);
+
+            // Simpan referensi
+            robot = {
+                group: group,
+                body: body,
+                screen: screen,
+                leftEye: leftEye,
+                rightEye: rightEye,
+                mouth: mouth,
+                heart: heart,
+                leftAntenna: leftAntenna,
+                rightAntenna: rightAntenna,
+                leftTip: leftTip,
+                rightTip: rightTip,
+                leftArm: leftArm,
+                rightArm: rightArm,
+                leftHand: leftHand,
+                rightHand: rightHand,
+                leftLeg: leftLeg,
+                rightLeg: rightLeg,
+                leftFoot: leftFoot,
+                rightFoot: rightFoot,
+                baseY: 0
+            };
+            group.position.y = 1.5;  // Geser ke atas
+            robot.baseY = group.position.y; // Agar animasi idle tetap smooth
+            scene.add(group);
+        }
+
+        
+        // Change robot expression based on text content
+        function analyzeTextAndSetExpression(text) {
+            const lowerText = text.toLowerCase();
+            
+            if (lowerText.includes('senang') || lowerText.includes('bahagia') || lowerText.includes('gembira')) {
+                setExpression('happy');
+            } else if (lowerText.includes('sedih') || lowerText.includes('kecewa') || lowerText.includes('duka')) {
+                setExpression('sad');
+            } else if (lowerText.includes('marah') || lowerText.includes('kesal') || lowerText.includes('jengkel')) {
+                setExpression('angry');
+            } else if (lowerText.includes('kaget') || lowerText.includes('terkejut') || lowerText.includes('heran')) {
+                setExpression('surprised');
+            } else if (lowerText.includes('bingung') || lowerText.includes('tidak tahu') || lowerText.includes('aneh')) {
+                setExpression('confused');
+            } else {
+                setExpression('normal');
+            }
+        }
+        
+        // Set robot expression
+        function setExpression(expression) {
+            currentExpression = expression;
+            updateExpressionMode(expression);
+            
+            switch(expression) {
+                case 'happy':
+                    robot.leftEye.material.color.setHex(0x00ff00);
+                    robot.rightEye.material.color.setHex(0x00ff00);
+                    robot.mouth.material.color.setHex(0x00ff00);
+                    robot.leftTip.material.color.setHex(0x00ff00);
+                    robot.rightTip.material.color.setHex(0x00ff00);
+                    break;
+                case 'sad':
+                    robot.leftEye.material.color.setHex(0x0066ff);
+                    robot.rightEye.material.color.setHex(0x0066ff);
+                    robot.mouth.material.color.setHex(0x0066ff);
+                    robot.leftTip.material.color.setHex(0x0066ff);
+                    robot.rightTip.material.color.setHex(0x0066ff);
+                    break;
+                case 'angry':
+                    robot.leftEye.material.color.setHex(0xff0000);
+                    robot.rightEye.material.color.setHex(0xff0000);
+                    robot.mouth.material.color.setHex(0xff0000);
+                    robot.leftTip.material.color.setHex(0xff0000);
+                    robot.rightTip.material.color.setHex(0xff0000);
+                    break;
+                case 'surprised':
+                    robot.leftEye.material.color.setHex(0xffff00);
+                    robot.rightEye.material.color.setHex(0xffff00);
+                    robot.mouth.material.color.setHex(0xffff00);
+                    robot.leftTip.material.color.setHex(0xffff00);
+                    robot.rightTip.material.color.setHex(0xffff00);
+                    break;
+                case 'confused':
+                    robot.leftEye.material.color.setHex(0xff6600);
+                    robot.rightEye.material.color.setHex(0xff6600);
+                    robot.mouth.material.color.setHex(0xff6600);
+                    robot.leftTip.material.color.setHex(0xff6600);
+                    robot.rightTip.material.color.setHex(0xff6600);
+                    break;
+                default: // normal
+                    robot.leftEye.material.color.setHex(0x00ff00);
+                    robot.rightEye.material.color.setHex(0x00ff00);
+                    robot.mouth.material.color.setHex(0x0088ff);
+                    robot.leftTip.material.color.setHex(0xff0000);
+                    robot.rightTip.material.color.setHex(0xff0000);
+                    break;
+            }
+        }
+        
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const deltaTime = clock.getDelta();
+            const elapsedTime = clock.getElapsedTime();
+            
+            // Idle animation - floating and gentle rotation
+            if (robot && !isSpeaking) {
+                robot.group.position.y = robot.baseY + Math.sin(elapsedTime * 1.5) * 0.1;
+                robot.group.rotation.y = Math.sin(elapsedTime * 0.3) * 0.1;
+                
+                // Antenna swaying
+                robot.leftAntenna.rotation.z = Math.sin(elapsedTime * 2) * 0.1;
+                robot.rightAntenna.rotation.z = Math.sin(elapsedTime * 2 + Math.PI) * 0.1;
+                
+                // LED pulsing
+                const pulseIntensity = 0.3 + Math.sin(elapsedTime * 3) * 0.2;
+                robot.leftEye.material.emissiveIntensity = pulseIntensity;
+                robot.rightEye.material.emissiveIntensity = pulseIntensity;
+                robot.mouth.material.emissiveIntensity = pulseIntensity * 0.5;
+            }
+            
+            // Speaking animation
+            if (robot && isSpeaking) {
+                // More dynamic movement while speaking
+                robot.group.position.y = robot.baseY + Math.sin(elapsedTime * 4) * 0.15;
+                robot.group.rotation.y = Math.sin(elapsedTime * 2) * 0.2;
+                
+                // Head tilt
+                robot.body.rotation.x = Math.sin(elapsedTime * 3) * 0.1;
+                robot.body.rotation.z = Math.sin(elapsedTime * 2.5) * 0.05;
+                
+                // Mouth animation (size change)
+                const mouthScale = 1 + Math.sin(elapsedTime * 8) * 0.5;
+                robot.mouth.scale.set(mouthScale, mouthScale, 1);
+                
+                // Eyes blinking and movement
+                if (Math.random() > 0.98) {
+                    robot.leftEye.scale.y = 0.1;
+                    robot.rightEye.scale.y = 0.1;
+                    setTimeout(() => {
+                        robot.leftEye.scale.y = 1;
+                        robot.rightEye.scale.y = 1;
+                    }, 150);
+                }
+                
+                // Arm gestures
+                robot.leftArm.rotation.z = Math.sin(elapsedTime * 4) * 0.3;
+                robot.rightArm.rotation.z = Math.sin(elapsedTime * 4 + Math.PI) * 0.3;
+                
+                // Antenna more active
+                robot.leftAntenna.rotation.z = Math.sin(elapsedTime * 5) * 0.2;
+                robot.rightAntenna.rotation.z = Math.sin(elapsedTime * 5 + Math.PI) * 0.2;
+                
+                // LED intensity based on expression
+                const baseIntensity = currentExpression === 'angry' ? 0.8 : 0.5;
+                const speakingIntensity = baseIntensity + Math.sin(elapsedTime * 6) * 0.3;
+                robot.leftEye.material.emissiveIntensity = speakingIntensity;
+                robot.rightEye.material.emissiveIntensity = speakingIntensity;
+                robot.mouth.material.emissiveIntensity = speakingIntensity * 0.7;
+                
+                // Antenna tips blinking
+                robot.leftTip.material.emissiveIntensity = Math.sin(elapsedTime * 10) > 0 ? 0.8 : 0.3;
+                robot.rightTip.material.emissiveIntensity = Math.sin(elapsedTime * 10 + Math.PI) > 0 ? 0.8 : 0.3;
+            }
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Speech functions
+        function speak(text) {
+            if (!text.trim()) {
+                updateStatus('Tidak ada teks untuk dibacakan');
+                return;
+            }
+            
+            // Analyze text for expression
+            analyzeTextAndSetExpression(text);
+            
+            // Stop current speech
+            speechSynthesis.cancel();
+            
+            // Create new utterance
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            
+            // Configure voice (try to use Indonesian voice)
+            const voices = speechSynthesis.getVoices();
+            const indonesianVoice = voices.find(voice => 
+                voice.lang.includes('id') || voice.lang.includes('ID')
+            );
+            
+            if (indonesianVoice) {
+                currentUtterance.voice = indonesianVoice;
+            }
+            
+            currentUtterance.rate = 0.9;
+            currentUtterance.pitch = 1.1;
+            currentUtterance.volume = 0.9;
+            
+            // Event listeners
+            currentUtterance.onstart = () => {
+                isSpeaking = true;
+                updateUI(true);
+                updateStatus('Robot sedang berbicara...');
+                updateCharacterStatus('Berbicara');
+            };
+            
+            currentUtterance.onend = () => {
+                isSpeaking = false;
+                updateUI(false);
+                updateStatus('Robot selesai berbicara');
+                updateCharacterStatus('Siap membantu');
+                setExpression('normal'); // Reset to normal expression
+            };
+            
+            currentUtterance.onerror = (event) => {
+                isSpeaking = false;
+                updateUI(false);
+                updateStatus('Error: ' + event.error);
+                updateCharacterStatus('Error');
+                setExpression('confused');
+            };
+            
+            // Start speaking
+            speechSynthesis.speak(currentUtterance);
+        }
+        
+        function stopSpeaking() {
+            speechSynthesis.cancel();
+            isSpeaking = false;
+            updateUI(false);
+            updateStatus('Dihentikan');
+            updateCharacterStatus('Siap membantu');
+            setExpression('normal');
+        }
+        
+        function updateUI(speaking) {
+            const speakBtn = document.getElementById('speakBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const textInput = document.getElementById('textInput');
+            
+            speakBtn.disabled = speaking;
+            stopBtn.disabled = !speaking;
+            textInput.disabled = speaking;
+            
+            if (speaking) {
+                document.getElementById('character-info').classList.add('speaking');
+            } else {
+                document.getElementById('character-info').classList.remove('speaking');
+            }
+        }
+        
+        function updateStatus(message) {
+            document.getElementById('status').textContent = message;
+        }
+        
+        function updateCharacterStatus(status) {
+            document.getElementById('character-status').textContent = status;
+        }
+        
+        function updateExpressionMode(expression) {
+            const modes = {
+                'normal': 'Normal',
+                'happy': 'Senang 😊',
+                'sad': 'Sedih 😢',
+                'angry': 'Marah 😠',
+                'surprised': 'Kaget 😲',
+                'confused': 'Bingung 🤔'
+            };
+            document.getElementById('expression-mode').textContent = modes[expression] || 'Normal';
+        }
+        
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            initThree();
+            
+            // Load voices
+            speechSynthesis.onvoiceschanged = () => {
+                const voices = speechSynthesis.getVoices();
+                console.log('Available voices:', voices.map(v => v.name + ' (' + v.lang + ')'));
+            };
+            
+            // Button events
+            document.getElementById('speakBtn').addEventListener('click', () => {
+                const text = document.getElementById('textInput').value;
+                speak(text);
+            });
+            
+            document.getElementById('stopBtn').addEventListener('click', stopSpeaking);
+            
+            // Enter key to speak
+            document.getElementById('textInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey && !isSpeaking) {
+                    e.preventDefault();
+                    const text = document.getElementById('textInput').value;
+                    speak(text);
+                }
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

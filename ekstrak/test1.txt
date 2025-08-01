@@ -1,0 +1,423 @@
+T.Rajani Devi, V.Shobha Reddy / International Journal of Engineering Research and Applications 
+(IJERA)      ISSN: 2248-9622   www.ijera.com 
+Vol. 2, Issue 2, Mar-Apr 2012, pp.683-686 
+ 
+683 | P a g e  
+Work Breakdown Structure of the Project 
+ 
+T.Rajani Devi, V.Shobha Reddy 
+(Department of Computer Science, Kakatiya University, Hanamkonda, Warangal – 506009, Andhra Pradesh) 
+ (Department of Computer Science, Kakatiya University, Hanamkonda, Warangal – 506009, Andhra Pradesh) 
+ 
+ 
+ABSTRACT 
+The WBS or the Work Breakdown Structure is essential 
+as part of project’s lifecycle and timeline. An important 
+part of Project planning, the WBS begins with a 
+hierarchy of tasks and levels that help to identify how 
+the project will flow within a designed timeline set by 
+the project manager .The project management institute 
+defines the WBS as “ Representing the sum total 
+decomposition of all work that the project encompasses, 
+from beginning to end ” . 
+ 
+Keywords - WBS, work breakdown structure, 
+milestones, stakeholder. 
+1     INTRODUCTION 
+            A complex project is made manageable by first 
+breaking it down into individual components in a 
+hierarchical structure, known as the work breakdown 
+structure, or the WBS. Such a structure defines tasks that 
+can be completed independently of other tasks, facilitating 
+resource allocation, assignment of responsibilities, and 
+measurement and control of the project. 
+      Company owners and project managers use the Work 
+Breakdown Structure (WBS) to make complex projects 
+more manageable. The WBS is designed to help break down 
+a project into manageable chunks that can be effectively 
+estimated and supervised. 
+Some widely used reasons for creating a WBS include: 
+ 
+Assists with accurate project organization  
+ 
+Helps with assigning responsibilities  
+ 
+Shows the control points and project milestones  
+ 
+Allows for more accurate estimation of cost, risk 
+and time 
+ 
+Helps explain the project scope to stakeholders 
+The introduction of the paper should explain the nature of 
+the problem, previous work, purpose, and the contribution of 
+the paper. The contents of each section may be provided to 
+understand easily about the paper. 
+2   PURPOSE  
+The Work Breakdown Structure (WBS) divides the entire project 
+into its component elements in order to establish a framework for 
+effective management control of the project scope, schedule and 
+budget. 
+ 
+ 
+ 
+3   SCOPE 
+ The WBS is a product-oriented, hierarchical depiction of all work 
+elements required to accomplish the entire work scope of the 
+project. Project Managers are responsible for the creation of a 
+WBS. 
+4    PROCEDURE 
+4.1 Structure  
+                      A project WBS is a product-oriented grouping of 
+project work elements that organizes and defines the total scope of 
+the project. The WBS is a multi-level framework that organizes 
+and graphically displays elements representing work to be 
+accomplished in logical relationships. Each descending level 
+represents an increasingly detailed definition/division of a project 
+component. It is the structure and code that integrates and relates 
+all project work (technical, schedule, and budget) and is used 
+throughout the life cycle of a project to identify, assign, and track 
+specific work scopes. The WBS will be established in sufficient 
+detail so that each control account has a unique WBS element. The 
+WBS is described in the Project Execution Plan (PEP), or attached 
+as an appendix. 
+4.2 Responsibility  
+                              Project Managers are responsible for the 
+creation of a WBS for their assigned projects, with input from 
+other members of the project team. 
+ 
+4.2.1   Constructing a Work Breakdown Structure  
+To start out, the project manager and subject matter experts 
+determine the main deliverables for the project. Once this is 
+completed, they start decomposing the deliverables they have 
+identified, breaking them down to successively smaller chunks of 
+work. 
+"How small?" you may ask. That varies with project type and 
+management style, but some sort of predetermined “rule” should 
+govern the size and scope of the smallest chunks of work. There 
+could be a two weeks rule, where nothing is broken down any 
+smaller than it would take two weeks to complete. You can also 
+use the 8/80 rule, where no chunk would take less than 8 hours or 
+longer than 80 hours to complete. Determining the chunk size 
+“rules” can take a little practice, but in the end these rules make 
+the WBS easier to use. 
+T.Rajani Devi, V.Shobha Reddy / International Journal of Engineering Research and Applications 
+(IJERA)      ISSN: 2248-9622   www.ijera.com 
+Vol. 2, Issue 2, Mar-Apr 2012, pp.683-686 
+ 
+684 | P a g e  
+The work breakdown structure can be illustrated in a block 
+diagram: 
+ 
+                          “   Fig. 1” 
+ 
+4.2.2 
+What is the WBS and Why Is It Important? 
+The WBS, or the Work Breakdown Structure, is essential as part of 
+a project's lifecycle and timeline. An important part of project 
+planning, the WBS begins with a hierarchy of tasks and levels that 
+help to identify how the project will flow within a designed 
+timeline set by the project manager. The Project Management 
+Institute defines the WBS as, "Representing the sum total 
+decomposition of all work that the project encompasses, from 
+beginning to end." 
+So, didn't you already discuss this in your project initiation 
+meetings? Weren't teams chosen and tasks assigned? Isn't everyone 
+on the same page and ready to go? 
+Perhaps, but utilizing a WBS to outline where the project will start, 
+what phases, levels, and tasks will be first, second, third, and so on, 
+and the project's duration is essential any project's success. 
+Skipping the WBS could cause delays, confused tasking by team 
+members and project overruns. The WBS also helps to define the 
+specifics of the project outlined in the project scope. 
+4.2.3 
+Developing the work breakdown structure  
+4.2.3.1 
+Work packages  
+Work package is the final product of the work breakdown 
+structure .It is a collection of a series of related job or task , 
+it is situated in the bottom of the work breakdown structure, 
+something that is easy to be controlled by project team 
+members. It is also the basis for subsequent management of 
+projects and based on all the progress of the plan, quality 
+management planning, cost planning, staffing is based on it 
+is the smallest unit of project management. 
+In work breakdown structures, when a series of work 
+package, we can refer to the following principles: 
+ 
+Work packages are independently deliverable units, 
+it should be clear, the only. 
+ 
+Work tasks in a package should be able to 
+explicitly implement in an organization or 
+individual. 
+ 
+Work package life cycle should be the shortest. 
+ 
+Clear work packages and relationship to other work 
+packages 
+ 
+Work package to determine the actual cost of 
+budget, human and resource needs. 
+ 
+Work most of the tasks in the package on 
+adaptability of project personnel should have the 
+same type in the group. 
+4.2.3.2 Key elements 
+In the previous section introduced in work package should 
+note or refer some of the principles, that is when the original 
+production work package have some reference value .when 
+after a series of work packages are broken down , the project 
+group on how these work packages ,or ,after the team got 
+the work package ,you need to do what work ? 
+Recommendations are as follows: 
+ 
+ 
+Content describes the process or activity. 
+According to the project scope statement, for each 
+work package describe, indicate that the nature of 
+the work package. 
+ 
+Assign responsible persons. Identify related 
+organizations and individuals responsible for the 
+task work package. That is, they work to complete 
+the tasks of the package. 
+ 
+Work package life cycle. That is, determine the 
+start time and end time of the work package. 
+ 
+Pursuant to a work package to develop plans or 
+allocation of necessary resources. Such as: the 
+progress plan for each work package, cost 
+estimates, quality management schemes. 
+4.2.3.3 
+Work breakdown structure and milestones 
+In the work breakdown structure element (work package, a 
+middle-tier or work breakdown structure) when completed, 
+will output a series of deliverables. At the same time, 
+according to the actual situation of the project, the team can 
+make this unit of work associated with a milestone. 
+Milestone marks one of the results or stages of work 
+completed. Typically, the milestone is closely associated 
+with and deliverables. When reaching milestones, project 
+team members can subscribe to a project summary, 
+reflection. If problems are found, you can take the necessary 
+remedial measures. Milestone exists to make specific for 
+team goals, compared with the main objective of the project 
+and deliverables, milestones more easily and control, to 
+reduce project risks. 
+According to the work breakdown structure, a point in the 
+process of the project is running social milestone is 
+meaningful. 
+T.Rajani Devi, V.Shobha Reddy / International Journal of Engineering Research and Applications 
+(IJERA)      ISSN: 2248-9622   www.ijera.com 
+Vol. 2, Issue 2, Mar-Apr 2012, pp.683-686 
+ 
+685 | P a g e  
+4.3 Creating a WBS for the Project Duration  
+Once we have gotten the first two levels set, it is time to launch 
+into our decomposition or breakdown. Decomposition is the act of 
+breaking down deliverables in to successively smaller chunks of 
+work to be completed in order to achieve a level of work that can 
+be both realistically managed by the Project Manager and 
+completed within a given time frame by one or more team 
+members. This level of breakdown and detail is called the Work 
+Package. Work packages are the lowest level of the WBS and are 
+pieces of work that are specifically assigned to one person or one 
+team of people to be completed. This is also the level at which the 
+Project Manger has to monitor all project work. 
+The importance of defining a project's duration becomes something 
+you and your team members can see, feel, and touch if you utilize a 
+WBS in the project's lifecycle. Avoiding the all important work 
+breakdown structure can be costly. 
+4.4 
+Why Do Project Teams Need a Work Breakdown 
+Structure?  
+The work breakdown structure has a number of benefits in addition 
+to defining and organizing the project work. A project budget can 
+be allocated to the top levels of the work breakdown structure, and 
+department budgets can be quickly calculated based on the each 
+project’s work breakdown structure. By allocating time and cost 
+estimates to specific sections of the work breakdown structure, a 
+project schedule and budget can be quickly developed. As the 
+project executes, specific sections of the work breakdown structure 
+can be tracked to identify project cost performance and identify 
+issues and problem areas in the project organization. For more 
+information Project work breakdown structures can also be used to 
+identify potential risks in a given project. If a work breakdown 
+structure has a branch that is not well defined then it represents a 
+scope definition risk. These risks should be tracked in a project log 
+and reviewed as the project executes. By integrating the work 
+breakdown structure with an organization breakdown structure, the 
+project manager can also identify communication points and 
+formulate a communication plan across the project organization. 
+Project work breakdown structures can also be used to identify 
+potential risks in a given project. If a work breakdown structure has 
+a branch that is not well defined then it represents a scope 
+definition risk. These risks should be tracked in a project log and 
+reviewed as the project executes. By integrating the work 
+breakdown structure with an organization breakdown structure, the 
+project manager can also identify communication points and 
+formulate a communication plan across the project organization. 
+When a project is falling behind, referring the work breakdown 
+structure will quickly identify the major deliverables impacted by a 
+failing work package or late sub- deliverable. The work breakdown 
+structure can also be color coded to represent sub- deliverable 
+status. Assigning colors of red for late, yellow for at risk, green for 
+on-target, and blue for completed deliverables is an effective way 
+to produce a heat-map of project progress and draw management’s 
+attention to key areas of the work breakdown structure. 
+In this article we are going to look at what many project managers 
+and project management professionals refer to as the "foundation" 
+of the project, or at least the foundation of project planning. The 
+Work Breakdown Structure (WBS) is defined by A Guide to the 
+Project Management Body of Knowledge 3rd Edition (PMBOK 
+Guide) as: 
+A deliverable oriented hierarchical decomposition of the work to 
+be executed by the project team to accomplish the project 
+objectives and create the required deliverables. 
+Wow! That is a lot of buzz words and jargon, but do not worry. It 
+is not nearly as daunting as it sounds. Creating a quality WBS will 
+require a substantial amount of energy, time, and people, but in the 
+end is not rocket science. However, before we get too deep into 
+how to actually create a WBS let's first look at its purpose. 
+4.4.1 Purpose of work breakdown structure  
+Why do we need to create a WBS for our projects? What purpose 
+does it serve? Why should I waste my time writing on post-it notes 
+and drawing charts when I could be getting my team started on the 
+actual work of the project? Now, I know everyone reading this is a 
+great project manager or team member, so I am sure none of you 
+have ever said comments such as these, but I am sure you have 
+heard them from those "other" project managers who will remain 
+nameless. 
+So to answer these questions, let's take a look at what purpose the 
+WBS serves to our project and our project team. There are three 
+reasons to use a WBS in your projects. The first is that is helps 
+more accurately and specifically define and organize the scope of 
+the total project. The most common way this is done is by using a 
+hierarchical tree structure. Each level of this structure breaks the 
+project deliverables or objectives down to more specific and 
+measurable chunks. The second reason for using a WBS in your 
+projects is to help with assigning responsibilities, resource 
+allocation, monitoring the project, and controlling the project. The 
+WBS makes the deliverables more precise and concrete so that the 
+project team knows exactly what has to be accomplished within 
+each deliverable. This also allows for better estimating of cost, 
+risk, and time because you can work from the smaller tasks back 
+up to the level of the entire project. Finally, it allows you double 
+check all the deliverables' specifics with the stakeholders and make 
+sure there is nothing missing or overlapping. 
+The main purpose of Work Breakdown Structure is that firstly, it 
+helps to define and organize the scope of the total project more 
+accurately and specifically. The most common way this is done is 
+by using a hierarchical tree structure. Each level of this structure 
+breaks the project deliverables or objectives down to more specific 
+and measurable chunks. The second reason for using a Work 
+Breakdown Structure in your projects is to help with assigning 
+responsibilities, resource allocation, monitoring the project, and 
+controlling the project. The WBS makes the deliverables more 
+precise and concrete so that the project team knows exactly what 
+has to be accomplished within each deliverable. 
+This also allows for better estimating of cost, risk, and time 
+because you can work from the smaller tasks back up to the level 
+of the entire project. Finally, it allows you double check all the 
+deliverables' specifics with the stakeholders and make sure there is 
+nothing missing or overlapping. Besides, using the tree structure, 
+you may also use Mind Mapping methodology, if you are familiar 
+with it. 
+The very common question is how specific or small does a chunk 
+of work need to be to still be considered a work package? Well 
+PMBOK does not seem to give a definitive answer on that. Most 
+project managers concur that this varies by project, but can usually 
+be measured using the 8/80 Rule. The 8/80 Rule says that no work 
+package should be less than 8 hours or greater than 80 hours. 
+Notice we said that the work package is the lowest level of the 
+WBS. Activities and tasks are not included in the WBS. They will 
+be planned from the work packages once they are assigned.  
+T.Rajani Devi, V.Shobha Reddy / International Journal of Engineering Research and Applications 
+(IJERA)      ISSN: 2248-9622   www.ijera.com 
+Vol. 2, Issue 2, Mar-Apr 2012, pp.683-686 
+ 
+686 | P a g e  
+5 
+COMMON PITFALLS AND MISCONCEPTIONS 
+  A WBS is not an exhaustive list of work. It is instead a 
+comprehensive classification of project scope.  
+ 
+  A WBS is not a project plan or a project schedule and it is 
+not a chronological listing. It is considered poor practice to 
+construct a project schedule (e.g. using project management 
+software) before designing a proper WBS. This would be 
+similar to scheduling the activities of home construction 
+before completing the house design. Without concentrating 
+on planned outcomes, it is very difficult to follow the 100% 
+Rule at all levels of the WBS hierarchy. It is not possible to 
+recover from an improperly defined WBS without starting 
+over, so it is worthwhile to finish the WBS design before 
+starting a project plan or project schedule.  
+ 
+A WBS is not an organizational hierarchy. Some 
+practitioners make the mistake of creating a WBS that 
+shadows the organizational chart. While it is common for 
+responsibility to be assigned to organizational elements, a 
+WBS that shadows the organizational structure is not 
+descriptive of the project scope and is not outcome-oriented.  
+ 
+Short-term memory capacity should not dictate the size and 
+span of a WBS tree structure. Some reference material 
+suggests that each WBS level be limited to 5-9 elements 
+because that is a theoretical limit to short-term memory. It is 
+far more important to construct a logical grouping of 
+planned outcomes than to worry about the limits of short-
+term human memory.  
+WBS updates, other than progressive elaboration of details, 
+require formal change control. This is another reason why a 
+WBS should be outcome-oriented and not be prescriptive of 
+methods. Methods can and do changes frequently, but 
+changes in planned outcomes require a higher degree of 
+formality. If outcomes and actions are blended, change 
+control may be too rigid for actions and too informal for 
+outcomes. 
+6 
+CONCLUSION 
+At the risk of sounding melodramatic, the efficiency of a 
+project’s Work Breakdown Structure can determine that 
+project’s success. The WBS provides the foundation for 
+project planning, cost estimation, scheduling and resource 
+allocation, not to mention risk management. 
+7 
+REFERENCES 
+[1] Booz, Allen & Hamilton Earned Value Management 
+Tutorial Module 2: Work Breakdown Structure, Office 
+of Science, Tools & Resources for Project Management, 
+science.energy.gov. Accessed 27. Dec 2011. 
+[2] Practice Standard for Work Breakdown Structures 
+(Second Edition), published by the Project Management 
+Institute, ISBN 1933890134. 
+[3] Gregory T. Haugan. Effective Work Breakdown 
+Structures (The Project Management Essential Library 
+Series). ISBN 1-56726-135-3.  
+[4] Carl L. Pritchard. Nuts and Bolts Series 1: How to 
+Build a Work Breakdown Structure. ISBN 1-890367-
+12-5. 
+[5] Chapman,james 
+R.2004. 
+work 
+breakdown 
+structures,version 2.01,November,2004.available from 
+http://www.hyperthot.com/pm_wbs.htm;accessed 
+22 
+February 2005 
+[6] Effective Work Breakdown Structures By Gregory T. 
+Haugan, Published by Management Concepts, 2001, 
+ISBN 1567261353, p.17 
+[7] Dennis P. Miller, PMP, "Building Your Project Work 
+Breakdown Structure -- Visualizing Your Objectives, 
+Deliverables, Activities and Schedule". ISBN 1-
+42006969-1 (Note: This new book is essentially a 
+facilitator's guide for planning a project based on the 
+WBS.) 
+[8] Project Management Institute. Project Management 
+Institute Practice Standard for Work Breakdown 
+Structures, Second Edition (2006). ISBN 1-933890-13-
+4 (Note: The Second Edition is an extensive re-write of 
+the Practice Standard).  
